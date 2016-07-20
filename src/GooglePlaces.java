@@ -104,8 +104,14 @@ public class GooglePlaces {
 			
 			JsonArray jarray = jobject.getAsJsonArray("weekday_text");
 			
-			System.out.println(address + "\n" + phoneNumber + "\n" + name + "\n" + openNow + jarray);
-
+			JsonElement day;
+			
+			System.out.println(address + "\n" + phoneNumber + "\n" + name + "\n" + openNow);
+			for(int i = 0; i <= 6; i++){
+			day = jarray.get(i);
+			
+			System.out.println(day);
+			}
 			// JSONObject obj = new JSONObject(line);
 
 			// JsonParser parser = new JsonParser();
