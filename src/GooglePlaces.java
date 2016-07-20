@@ -8,11 +8,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -91,6 +89,7 @@ public class GooglePlaces {
 			// result.tostring looks before you create the JsonElement
 			JsonElement jelement = new JsonParser().parse(result.toString());
 			// turn in the entire element into a Json object
+			
 			JsonObject jobject = jelement.getAsJsonObject();
 			// pull out the first object according to the keyword
 			jobject = jobject.getAsJsonObject("result");
@@ -98,7 +97,14 @@ public class GooglePlaces {
 			JsonElement address = jobject.get("formatted_address");
 			JsonElement phoneNumber = jobject.get("formatted_phone_number");
 			JsonElement name = jobject.get("name");
-			System.out.println(address + "\n" + phoneNumber + "\n" + name);
+			
+			jobject = jobject.getAsJsonObject("opening_hours");
+			
+			JsonElement openNow = jobject.get("open_now");
+			
+			JsonArray jarray = jobject.getAsJsonArray("weekday_text");
+			
+			System.out.println(address + "\n" + phoneNumber + "\n" + name + "\n" + openNow + jarray);
 
 			// JSONObject obj = new JSONObject(line);
 
